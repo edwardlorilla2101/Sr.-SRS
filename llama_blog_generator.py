@@ -1,6 +1,29 @@
 import random
 import subprocess
 
+def ensure_model_available(model_name):
+    """Ensure the model is available locally."""
+    try:
+        result = subprocess.run(
+            ["ollama", "list"],
+            stdout=subprocess.PIPE,
+            stderr=subprocess.PIPE,
+            text=True
+        )
+        if model_name not in result.stdout:
+            print(f"Model {model_name} not found. Pulling the model...")
+            pull_result = subprocess.run(
+                ["ollama", "pull", model_name],
+                stdout=subprocess.PIPE,
+                stderr=subprocess.PIPE,
+                text=True
+            )
+            if pull_result.returncode != 0:
+                raise Exception(f"Error pulling model: {pull_result.stderr}")
+            print(f"Model {model_name} pulled successfully.")
+    except Exception as e:
+        raise Exception(f"Error ensuring model availability: {e}")
+
 def generate_random_inputs():
     topics = [
         "Future of Renewable Energy",
@@ -26,9 +49,9 @@ def get_ollama_response(input_text, no_words, blog_style):
         within {no_words} words.
     """
     try:
-        # Use CLI to query Ollama
+        ensure_model_available("llama-2-7b")
         result = subprocess.run(
-            ["ollama", "run", "llama-2-7b", prompt],  # Update to the correct command
+            ["ollama", "run", "llama-2-7b", prompt],
             stdout=subprocess.PIPE,
             stderr=subprocess.PIPE,
             text=True
