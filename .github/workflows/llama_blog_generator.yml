@@ -21,11 +21,14 @@ jobs:
       with:
         python-version: '3.8'
 
+    - name: Install Ollama CLI
+      run: |
+        curl -sSL https://ollama.ai/install.sh | bash
+
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
-        pip install ollama
 
-    - name: Run Blog Generator with Ollama
+    - name: Run Blog Generator with Custom Script
       run: |
         python llama_blog_generator.py
