@@ -24,7 +24,7 @@ jobs:
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
-        pip install langchain ctransformers
+        pip install langchain langchain_community ctransformers
 
     - name: Run LLaMA Blog Generator
       run: |
