@@ -1,6 +1,5 @@
 import random
-from langchain.prompts import PromptTemplate
-from langchain.llms import CTransformers
+from ollama import Ollama
 
 def generate_random_inputs():
     # List of random topics
@@ -27,32 +26,20 @@ def generate_random_inputs():
     
     return input_text, no_words, blog_style
 
-# Function to get response from LLaMA model
-def get_llama_response(input_text, no_words, blog_style):
-    # Initialize LLaMA model
-    llm = CTransformers(
-        model='models/llama-2-7b-chat.ggmlv3.q8_0.bin',
-        model_type='llama',
-        config={'max_new_tokens': 256, 'temperature': 0.01}
-    )
+# Function to get response from Ollama
+def get_ollama_response(input_text, no_words, blog_style):
+    # Initialize Ollama
+    model = Ollama(model_name="llama-2-7b")  # Adjust model name if necessary
     
     # Prompt template
-    template = """
-        Write a blog for {blog_style} job profile for a topic {input_text}
+    prompt = f"""
+        Write a blog for {blog_style} job profile about the topic "{input_text}"
         within {no_words} words.
     """
-    prompt = PromptTemplate(
-        input_variables=["blog_style", "input_text", "no_words"],
-        template=template
-    )
     
     # Generate response
-    response = llm(prompt.format(
-        blog_style=blog_style,
-        input_text=input_text,
-        no_words=no_words
-    ))
-    return response
+    response = model.query(prompt)
+    return response["response"]  # Extract the response text
 
 # Main script
 if __name__ == "__main__":
@@ -61,6 +48,6 @@ if __name__ == "__main__":
     print(f"Word Count: {word_count}")
     print(f"Blog Style: {audience}\n")
     
-    blog_content = get_llama_response(topic, word_count, audience)
+    blog_content = get_ollama_response(topic, word_count, audience)
     print("Generated Blog Content:\n")
     print(blog_content)
