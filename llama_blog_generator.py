@@ -28,7 +28,7 @@ def get_ollama_response(input_text, no_words, blog_style):
     try:
         # Use CLI to query Ollama
         result = subprocess.run(
-            ["ollama", "query", "llama-2-7b", prompt],
+            ["ollama", "run", "llama-2-7b", prompt],  # Update to the correct command
             stdout=subprocess.PIPE,
             stderr=subprocess.PIPE,
             text=True
