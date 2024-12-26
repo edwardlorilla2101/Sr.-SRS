@@ -18,11 +18,9 @@ jobs:
 
     - name: Install System Dependencies
       run: |
-        echo "Cleaning and updating the system..."
         sudo apt-get clean
         sudo rm -rf /var/lib/apt/lists/*
         sudo apt-get update
-        echo "Installing necessary packages..."
         sudo apt-get install -y ttf-mscorefonts-installer imagemagick ghostscript curl jq
 
     - name: Install Ollama
@@ -30,24 +28,22 @@ jobs:
         echo "Installing Ollama CLI..."
         curl -fsSL https://ollama.com/install.sh | sh
         ollama --version
-        ollama search llama
-
-    - name: Install Python Dependencies
-      run: |
-        echo "Upgrading pip and installing Python dependencies..."
-        python -m pip install --upgrade pip
-        pip install -r requirements.txt
 
     - name: Start Ollama Service
       run: |
         echo "Starting Ollama service..."
         ollama serve &
-        sleep 5  # Wait for the service to initialize
+        sleep 5  # Allow time for the service to initialize
+
+    - name: Verify Ollama Service
+      run: |
+        echo "Checking if Ollama API is running..."
+        curl http://127.0.0.1:11434/ || (echo "Ollama service not responding" && exit 1)
 
     - name: Pull LLaMA Model
       run: |
         echo "Pulling the LLaMA 2 model..."
-        if ! ollama pull llama-2-7b; then
+        if ! ollama pull llama2; then
           echo "Model pull failed. Please check model availability or permissions."
           exit 1
         fi
@@ -65,16 +61,6 @@ jobs:
           exit 1
         fi
         echo "Generated blog file verified."
-
-    - name: List Files in Workspace
-      run: |
-        echo "Listing all files in the workspace..."
-        ls -la
-
-    - name: Save Generated Blog
-      run: |
-        echo "Saving the generated blog content..."
-        mv generated_blog.txt $GITHUB_WORKSPACE/generated_blog.txt
 
     - name: Upload Generated Blog
       uses: actions/upload-artifact@v3
