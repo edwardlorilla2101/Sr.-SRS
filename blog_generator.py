@@ -81,28 +81,103 @@ def generate_random_inputs():
 
 def get_ollama_response(input_text, no_words, blog_style, word_of_the_day, model_name="llama2:chat"):
     """Generate a blog using Ollama with the provided inputs."""
-    """Generate a random prompt between Conversational and Research-Oriented styles."""
-    conversational_prompt = f"""
-        Write a blog for {blog_style} professionals about the topic "{input_text}". Make it engaging and easy to read, with approximately {no_words} words. 
-        Use the word "{word_of_the_day}" creatively and naturally. Include:
-        - Practical examples or relatable anecdotes to illustrate key points.
-        - Synonyms and alternative phrases for "{input_text}" to improve SEO.
-        - Eye-catching headings and bullet points for better readability.
-        - A concluding call-to-action to inspire further thought or action.
-    """
+    prompts = [
+        # Conversational Prompt
+        f"""
+            Write a blog for {blog_style} professionals about the topic "{input_text}". Make it engaging and easy to read, with approximately {no_words} words. 
+            Use the word "{word_of_the_day}" creatively and naturally. Include:
+            - Practical examples or relatable anecdotes to illustrate key points.
+            - Synonyms and alternative phrases for "{input_text}" to improve SEO.
+            - Eye-catching headings and bullet points for better readability.
+            - A concluding call-to-action to inspire further thought or action.
+        """,
 
-    research_oriented_prompt = f"""
-        Develop an in-depth, SEO-optimized blog for {blog_style} professionals on the topic "{input_text}". The blog should:
-        - Be around {no_words} words.
-        - Use "{word_of_the_day}" thoughtfully in a relevant context.
-        - Include statistics, references, or data-driven insights to support the content.
-        - Highlight challenges, solutions, or innovations related to the topic.
-        - Use structured formatting, with headings, subheadings, and lists to organize the information.
-    """
+        # Research-Oriented Prompt
+        f"""
+            Develop an in-depth, SEO-optimized blog for {blog_style} professionals on the topic "{input_text}". The blog should:
+            - Be around {no_words} words.
+            - Use "{word_of_the_day}" thoughtfully in a relevant context.
+            - Include statistics, references, or data-driven insights to support the content.
+            - Highlight challenges, solutions, or innovations related to the topic.
+            - Use structured formatting, with headings, subheadings, and lists to organize the information.
+        """,
 
-    # Randomly select a prompt
-    prompt = random.choice([conversational_prompt, research_oriented_prompt])
-    
+        # Storytelling Prompt
+        f"""
+            Create a narrative-style blog for {blog_style} professionals that focuses on the topic "{input_text}". The blog should:
+            - Be {no_words} words long.
+            - Include the word "{word_of_the_day}" in a meaningful and creative way.
+            - Start with a captivating story or anecdote to draw readers in.
+            - Include a moral, takeaway, or lesson that ties back to the topic.
+            - Use vivid language and relatable examples to make the content engaging.
+        """,
+
+        # Listicle Prompt
+        f"""
+            Write a blog for {blog_style} professionals in the form of a listicle about "{input_text}". The blog should:
+            - Contain {no_words} words and use the word "{word_of_the_day}" naturally.
+            - Include at least 5 main points or items, each with a brief explanation or example.
+            - Use headings and bullet points to make the content scannable.
+            - End with a summary or call-to-action to encourage further engagement.
+        """,
+
+        # Opinion Piece Prompt
+        f"""
+            Write an opinion-based blog for {blog_style} professionals about the topic "{input_text}". The blog should:
+            - Be {no_words} words long.
+            - Use "{word_of_the_day}" in a bold and creative way to emphasize your perspective.
+            - Present a clear stance on the topic and support it with logical arguments.
+            - Address potential counterarguments and provide rebuttals.
+            - Conclude with a strong and memorable statement to leave an impact.
+        """,
+
+        # How-To Guide Prompt
+        f"""
+            Create a detailed how-to guide for {blog_style} professionals about "{input_text}". The blog should:
+            - Be {no_words} words in length and include "{word_of_the_day}" in a practical context.
+            - Outline clear, step-by-step instructions with examples or tips.
+            - Use headings, subheadings, and numbered lists for easy navigation.
+            - Address common challenges and provide solutions for each step.
+        """,
+
+        # FAQ-Style Prompt
+        f"""
+            Write a blog for {blog_style} professionals in a FAQ format about the topic "{input_text}". The blog should:
+            - Be around {no_words} words long and include "{word_of_the_day}" in a creative way.
+            - Address at least 5 common questions or concerns related to the topic.
+            - Provide concise and informative answers with actionable advice.
+            - Use headings or bold text for each question to improve readability.
+        """,
+
+        # Problem-Solution Prompt
+        f"""
+            Write a blog for {blog_style} professionals focused on solving a specific problem related to "{input_text}". The blog should:
+            - Be {no_words} words long.
+            - Use "{word_of_the_day}" in the context of addressing or overcoming the problem.
+            - Clearly define the problem and explain why it matters.
+            - Offer practical solutions or strategies to tackle the issue.
+            - Conclude with a summary or call-to-action encouraging readers to act.
+        """,
+
+        # Analytical Prompt
+        f"""
+            Create an analytical blog for {blog_style} professionals that examines "{input_text}". The blog should:
+            - Be approximately {no_words} words in length.
+            - Include "{word_of_the_day}" to emphasize key points or findings.
+            - Break down the topic into smaller components or trends for analysis.
+            - Use data, graphs, or references to support arguments.
+            - Conclude with insights or predictions based on the analysis.
+        """,
+
+        # Creative Prompt
+        f"""
+            Write a creative blog for {blog_style} professionals about the topic "{input_text}". The blog should:
+            - Be around {no_words} words and incorporate "{word_of_the_day}" in an imaginative way.
+            - Use storytelling, metaphors, or fictional scenarios to explore the topic.
+            - Focus on originality and unique perspectives to captivate readers.
+            - Provide a meaningful takeaway or lesson at the end.
+        """
+    ]
     try:
         ensure_model_available(model_name)
         result = subprocess.run(
