@@ -3,7 +3,7 @@ import subprocess
 import os
 
 def ensure_model_available(model_name):
-    """Ensure the model is available locally."""
+    """Ensure the model is available locally or pull it if missing."""
     try:
         result = subprocess.run(
             ["ollama", "list"],
@@ -12,7 +12,7 @@ def ensure_model_available(model_name):
             text=True
         )
         if model_name not in result.stdout:
-            print(f"Model {model_name} not found locally. Pulling the model...")
+            print(f"Model {model_name} not found locally. Attempting to pull...")
             pull_result = subprocess.run(
                 ["ollama", "pull", model_name],
                 stdout=subprocess.PIPE,
@@ -22,6 +22,8 @@ def ensure_model_available(model_name):
             if pull_result.returncode != 0:
                 raise Exception(f"Error pulling model: {pull_result.stderr.strip()}")
             print(f"Model {model_name} pulled successfully.")
+        else:
+            print(f"Model {model_name} is already available locally.")
     except Exception as e:
         raise Exception(f"Error ensuring model availability: {e}")
 
@@ -35,9 +37,6 @@ def fetch_word_of_the_day():
             stderr=subprocess.PIPE,
             text=True
         )
-        if response.returncode != 0:
-            print(f"Error fetching Word of the Day: {response.stderr.strip()}")
-            return None
         if response.stdout.strip() != "200":
             print(f"Failed to fetch Word of the Day. HTTP Status: {response.stdout.strip()}")
             return None
@@ -50,6 +49,7 @@ def fetch_word_of_the_day():
             text=True
         ).stdout.strip()
         if word:
+            print(f"Fetched Word of the Day: {word}")
             return word
         print("Word of the Day not found in the response.")
         return None
@@ -76,7 +76,7 @@ def generate_random_inputs():
     blog_style = random.choice(styles)
     return input_text, no_words, blog_style
 
-def get_ollama_response(input_text, no_words, blog_style, word_of_the_day, model_name="llama-2"):
+def get_ollama_response(input_text, no_words, blog_style, word_of_the_day, model_name="llama2:chat"):
     """Generate a blog using Ollama with the provided inputs."""
     prompt = f"""
         Write a blog for {blog_style} job profile about the topic "{input_text}" 
@@ -92,18 +92,23 @@ def get_ollama_response(input_text, no_words, blog_style, word_of_the_day, model
         )
         if result.returncode != 0:
             raise Exception(f"Error running model: {result.stderr.strip()}")
+        print("Ollama Response Retrieved Successfully.")
         return result.stdout.strip()
     except Exception as e:
         return f"Error during query: {e}"
 
 if __name__ == "__main__":
+    # Generate random inputs
     topic, word_count, audience = generate_random_inputs()
-    word_of_the_day = fetch_word_of_the_day() or "innovation"  # Default if WOTD not fetched
+    word_of_the_day = fetch_word_of_the_day() or "innovation"  # Default if WOTD fetch fails
+    
+    # Display inputs
     print(f"Random Topic: {topic}")
     print(f"Word Count: {word_count}")
     print(f"Blog Style: {audience}")
     print(f"Word of the Day: {word_of_the_day}\n")
-
+    
+    # Generate the blog content
     blog_content = get_ollama_response(topic, word_count, audience, word_of_the_day)
     print("Generated Blog Content:\n")
     print(blog_content)
