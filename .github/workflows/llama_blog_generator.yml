@@ -2,7 +2,7 @@ name: Blog Generation with Ollama
 
 on:
   schedule:
-    - cron: "0 * * * *"  # Runs at the start of every hour
+    - cron: "*/30 * * * *"  # Runs at the start of every hour
   push:
     branches:
       - main
