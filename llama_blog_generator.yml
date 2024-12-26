@@ -1,5 +1,4 @@
 name: Run LLaMA Blog Generator
-
 on:
   push:
     branches:
