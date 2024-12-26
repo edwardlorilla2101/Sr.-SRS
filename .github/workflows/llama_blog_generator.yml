@@ -16,39 +16,63 @@ jobs:
     - name: Checkout Repository
       uses: actions/checkout@v3
 
-    - name: System Cleanup and Setup
+    - name: Install System Dependencies
       run: |
+        echo "Cleaning and updating the system..."
         sudo apt-get clean
         sudo rm -rf /var/lib/apt/lists/*
         sudo apt-get update
-        curl -fsSL https://ollama.com/install.sh | sh
-        sudo apt-get update
+        echo "Installing necessary packages..."
         sudo apt-get install -y ttf-mscorefonts-installer imagemagick ghostscript curl jq
+
+    - name: Install Ollama
+      run: |
+        echo "Installing Ollama CLI..."
+        curl -fsSL https://ollama.com/install.sh | sh
+        ollama --version
+
+    - name: Install Python Dependencies
+      run: |
+        echo "Upgrading pip and installing Python dependencies..."
         python -m pip install --upgrade pip
         pip install -r requirements.txt
 
-    - name: Verify Ollama Installation
-      run: ollama --version
-
     - name: Start Ollama Service
       run: |
+        echo "Starting Ollama service..."
         ollama serve &
-        sleep 5  # Wait for the service to start
+        sleep 5  # Wait for the service to initialize
 
-    - name: Pull Llama Model
-      run: ollama pull llama-2-7b
-
-    - name: Generate Blog Using Script
+    - name: Pull LLaMA Model
       run: |
+        echo "Pulling the LLaMA 2 model..."
+        if ! ollama pull llama-2-7b; then
+          echo "Model pull failed. Please check model availability or permissions."
+          exit 1
+        fi
+
+    - name: Generate Blog
+      run: |
+        echo "Generating the blog content..."
         python blog_generator.py
 
+    - name: Verify Generated Blog File
+      run: |
+        echo "Checking for the generated blog file..."
+        if [ ! -f "generated_blog.txt" ]; then
+          echo "Error: generated_blog.txt not found."
+          exit 1
+        fi
+        echo "Generated blog file verified."
+
     - name: List Files in Workspace
-      run: ls -la
+      run: |
+        echo "Listing all files in the workspace..."
+        ls -la
 
     - name: Save Generated Blog
-      if: success()
       run: |
-        echo "Saving the generated blog content."
+        echo "Saving the generated blog content..."
         mv generated_blog.txt $GITHUB_WORKSPACE/generated_blog.txt
 
     - name: Upload Generated Blog
