@@ -75,7 +75,7 @@ def generate_random_inputs():
     ]
     styles = ["Researchers", "Data Scientists", "Common People"]
     input_text = random.choice(topics)
-    no_words = 1500
+    no_words = 3000
     blog_style = random.choice(styles)
     return input_text, no_words, blog_style
 
