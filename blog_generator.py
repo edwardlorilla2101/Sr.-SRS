@@ -81,10 +81,28 @@ def generate_random_inputs():
 
 def get_ollama_response(input_text, no_words, blog_style, word_of_the_day, model_name="llama2:chat"):
     """Generate a blog using Ollama with the provided inputs."""
-    prompt = f"""
-        Write a blog for {blog_style} job profile about the topic "{input_text}" 
-        within {no_words} words. Include the word "{word_of_the_day}" creatively.
+    """Generate a random prompt between Conversational and Research-Oriented styles."""
+    conversational_prompt = f"""
+        Write a blog for {blog_style} professionals about the topic "{input_text}". Make it engaging and easy to read, with approximately {no_words} words. 
+        Use the word "{word_of_the_day}" creatively and naturally. Include:
+        - Practical examples or relatable anecdotes to illustrate key points.
+        - Synonyms and alternative phrases for "{input_text}" to improve SEO.
+        - Eye-catching headings and bullet points for better readability.
+        - A concluding call-to-action to inspire further thought or action.
     """
+
+    research_oriented_prompt = f"""
+        Develop an in-depth, SEO-optimized blog for {blog_style} professionals on the topic "{input_text}". The blog should:
+        - Be around {no_words} words.
+        - Use "{word_of_the_day}" thoughtfully in a relevant context.
+        - Include statistics, references, or data-driven insights to support the content.
+        - Highlight challenges, solutions, or innovations related to the topic.
+        - Use structured formatting, with headings, subheadings, and lists to organize the information.
+    """
+
+    # Randomly select a prompt
+    prompt = random.choice([conversational_prompt, research_oriented_prompt])
+    
     try:
         ensure_model_available(model_name)
         result = subprocess.run(
