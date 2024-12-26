@@ -1,5 +1,8 @@
 import random
 import subprocess
+import smtplib
+from email.mime.text import MIMEText
+from email.mime.multipart import MIMEMultipart
 import os
 
 def ensure_model_available(model_name):
@@ -97,6 +100,30 @@ def get_ollama_response(input_text, no_words, blog_style, word_of_the_day, model
     except Exception as e:
         return f"Error during query: {e}"
 
+def send_email(recipient_email, subject, content):
+    """Send the generated blog content via email."""
+    try:
+        sender_email = "elancelorilla@gmail.com"
+        sender_password = "your_password"
+
+        # Set up the MIME message
+        message = MIMEMultipart()
+        message["From"] = sender_email
+        message["To"] = recipient_email
+        message["Subject"] = subject
+
+        # Attach the blog content
+        message.attach(MIMEText(content, "plain"))
+
+        # Connect to the SMTP server
+        with smtplib.SMTP("smtp.gmail.com", 587) as server:
+            server.starttls()
+            server.login(sender_email, sender_password)
+            server.sendmail(sender_email, recipient_email, message.as_string())
+            print(f"Email sent successfully to {recipient_email}.")
+    except Exception as e:
+        print(f"Error sending email: {e}")
+
 if __name__ == "__main__":
     # Generate random inputs
     topic, word_count, audience = generate_random_inputs()
@@ -112,3 +139,14 @@ if __name__ == "__main__":
     blog_content = get_ollama_response(topic, word_count, audience, word_of_the_day)
     print("Generated Blog Content:\n")
     print(blog_content)
+
+    # Send the blog content via email
+    if "Error" not in blog_content:
+        recipient = "edwardlorilla2048.edwardlancelorilla@blogger.com"  # Replace with the actual recipient's email
+        send_email(
+            recipient_email=recipient,
+            subject=f"{topic}",
+            content=blog_content
+        )
+    else:
+        print("Blog content generation failed. Email will not be sent.")
