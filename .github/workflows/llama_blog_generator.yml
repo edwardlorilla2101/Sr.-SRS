@@ -30,6 +30,7 @@ jobs:
         echo "Installing Ollama CLI..."
         curl -fsSL https://ollama.com/install.sh | sh
         ollama --version
+        ollama search llama
 
     - name: Install Python Dependencies
       run: |
