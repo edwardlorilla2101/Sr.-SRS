@@ -62,9 +62,24 @@ def fetch_word_of_the_day():
 
 def generate_random_inputs():
     topics = [
-        # Technology Topics
-        "Advancements in Quantum Computing",
-        "Cybersecurity Trends in 2024",
+        "Philippines logs over 4,000 measles, rubella cases",
+        "Community action to curb dengue crisis in PH",
+        "Food sharing practices in Caribbean countries using intergenerational interviews",
+        "Determinants of gender-equitable attitudes among adult men in Malawi",
+        "Bird flu kills 20 big cats at Washington animal sanctuary",
+        "Bird flu concerns lead LA County officials to warn against feeding pets raw food",
+        "AI-designed 'nanocages' mimic viral behavior for gene therapy",
+        "Study: Exercise boosts brain function for 24 hours",
+        "17-year-old from Jerusalem contracts polio",
+        "Effects of smokeless tobacco on cancer incidence: meta-analysis",
+        "Linking genetics of dyslexia to brain structure",
+        "Heart attack deaths spike during winter holidays",
+        "Teabags release billions of microplastics",
+        "Study links coffee to lower head and neck cancer risk",
+        "H5N1 detected in dairy cattle for the first time",
+        "Mongolia confirms outbreak of meningococcal disease",
+        "Tips for managing Seasonal Affective Disorder",
+        "Hospital wards 'full to bursting' with respiratory patients",
         "The Role of Blockchain in Government Systems",
         "The Future of Self-Driving Cars",
         "How AI is Transforming Video Games",
