@@ -1,4 +1,4 @@
-name: Run Ollama Blog Generator
+name: Blog Generation with Ollama
 
 on:
   push:
@@ -9,26 +9,58 @@ on:
       - main
 
 jobs:
-  ollama-blog-generator:
+  blog-generation:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout repository
+    - name: Checkout Repository
       uses: actions/checkout@v3
 
-    - name: Set up Python
-      uses: actions/setup-python@v4
-      with:
-        python-version: '3.8'
-
-    - name: Install Ollama CLI
+    - name: System Cleanup and Setup
       run: |
-        curl -sSL https://ollama.ai/install.sh | bash
-
-    - name: Install dependencies
-      run: |
+        sudo apt-get clean
+        sudo rm -rf /var/lib/apt/lists/*
+        df -h
+        sudo apt-get update
+        curl -fsSL https://ollama.com/install.sh | sh
+        sudo apt-get update
+        sudo apt-get install -y ttf-mscorefonts-installer imagemagick ghostscript curl jq
         python -m pip install --upgrade pip
+        pip install oauth2client torch torchvision torchaudio google-auth google-auth-oauthlib google-auth-httplib2 google-api-python-client
+        pip install -r requirements.txt
 
-    - name: Run Blog Generator with Custom Script
+    - name: Verify Ollama Installation
+      run: ollama --version
+
+    - name: Kill Process on Default Ollama Port (if any)
       run: |
-        python llama_blog_generator.py
+        sudo kill $(sudo lsof -t -i:11434) || echo "No process running on port 11434"
+
+    - name: Start Ollama Service
+      run: |
+        ollama serve &
+        sleep 5  # Wait for the service to start
+
+    - name: Pull Llama Model
+      run: |
+        ollama pull llama-2-7b || echo "Model pull failed. Verify model availability."
+
+    - name: Check Ollama Root Endpoint
+      run: |
+        curl http://localhost:11434/ || echo "Ollama service not responding on port 11434."
+
+    - name: Generate Blog Using Script
+      run: |
+        python blog_generator.py
+
+    - name: Save Generated Blog
+      if: success()
+      run: |
+        echo "Saving the generated blog content."
+        mv generated_blog.txt $GITHUB_WORKSPACE/generated_blog.txt
+
+    - name: Upload Generated Blog
+      uses: actions/upload-artifact@v3
+      with:
+        name: Generated-Blog
+        path: generated_blog.txt
