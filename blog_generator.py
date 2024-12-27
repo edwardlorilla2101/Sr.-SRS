@@ -581,7 +581,7 @@ def generate_random_inputs():
     ]
 
     input_text = random.choice(topics)
-    no_words = 20000
+    no_words = 50000
     blog_style = random.choice(styles)
     return input_text, no_words, blog_style
 
@@ -718,7 +718,7 @@ def get_ollama_response(input_text, no_words, blog_style, word_of_the_day, model
     ]
 
                                   
-    prompt = "Generate a HTML code for a blog post directly. The content of the blog should be based on the following prompt: "  + random.choice(prompts)
+    prompt = "Generate a HTML code with image tag for a blog post directly. The content of the blog should be based on the following prompt: "  + random.choice(prompts)
     try:
         ensure_model_available(model_name)
         result = subprocess.run(
