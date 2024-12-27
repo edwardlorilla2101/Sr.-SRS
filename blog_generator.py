@@ -482,7 +482,7 @@ def generate_random_inputs():
     ]
 
     input_text = random.choice(topics)
-    no_words = 3000
+    no_words = 4000
     blog_style = random.choice(styles)
     return input_text, no_words, blog_style
 
