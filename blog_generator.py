@@ -585,7 +585,7 @@ def generate_random_inputs():
     blog_style = random.choice(styles)
     return input_text, no_words, blog_style
 
-def get_ollama_response(input_text, no_words, blog_style, word_of_the_day, model_name="llama3.3"):
+def get_ollama_response(input_text, no_words, blog_style, word_of_the_day, model_name="llama3"):
     """Generate a blog using Ollama with the provided inputs."""
     today_year = datetime.now().year
     prompts = [
