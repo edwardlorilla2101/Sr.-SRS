@@ -682,8 +682,40 @@ def get_ollama_response(input_text, no_words, blog_style, word_of_the_day, model
             - Use storytelling, metaphors, or fictional scenarios to explore the topic.
             - Focus on originality and unique perspectives to captivate readers.
             - Provide a meaningful takeaway or lesson at the end.with seo optimize
-        """
+        """,
+        f"{blog_style}: Why {input_text} No Longer Works and What to Do Instead. Be around {no_words} words and include '{word_of_the_day}'.",
+        f"How {blog_style} Professionals Can Benefit from {input_text}. Write {no_words} words and creatively use '{word_of_the_day}'.",
+        f"5 Underrated Tools for {blog_style} Professionals to Master {input_text}. Cover this in {no_words} words with '{word_of_the_day}' included.",
+        f"What {input_text} Means for {blog_style} Professionals. Analyze in {no_words} words while emphasizing '{word_of_the_day}'.",
+        f"How {blog_style} Professionals Can Master {input_text}. Provide actionable tips in {no_words} words and include '{word_of_the_day}'.",
+        f"Why {input_text} Is Critical for {blog_style} Success. Dive into the topic in {no_words} words, using '{word_of_the_day}' naturally.",
+        f"Lessons on {input_text} for {blog_style} Professionals. Share insights in {no_words} words, creatively using '{word_of_the_day}'.",
+        f"The Evolution of {input_text} for {blog_style} Professionals. Cover its journey in {no_words} words and include '{word_of_the_day}'.",
+        f"How {blog_style} Professionals Can Overcome Challenges with {input_text}. Offer solutions in {no_words} words, using '{word_of_the_day}'.",
+        f"Behind the Scenes: {input_text} for {blog_style}. Unveil insights in {no_words} words with a focus on '{word_of_the_day}'.",
+        f"Top Strategies for {blog_style} Professionals to Excel in {input_text}. Outline in {no_words} words while incorporating '{word_of_the_day}'.",
+        f"5 Ways {blog_style} Professionals Can Leverage {input_text}. Highlight approaches in {no_words} words, using '{word_of_the_day}' creatively.",
+        f"The Role of {input_text} in {blog_style} Growth. Explain in {no_words} words while weaving in '{word_of_the_day}'.",
+        f"Why {input_text} Matters for {blog_style}. Discuss its significance in {no_words} words and incorporate '{word_of_the_day}'.",
+        f"The Future of {input_text} for {blog_style} Professionals. Speculate in {no_words} words, making '{word_of_the_day}' central to the narrative.",
+        f"5 Key Insights on {input_text} for {blog_style}. Provide them in {no_words} words and include '{word_of_the_day}' creatively.",
+        f"How {input_text} Is Shaping the Future of {blog_style}. Write {no_words} words and make '{word_of_the_day}' a focus point.",
+        f"The Importance of {input_text} for {blog_style} Professionals. Highlight why in {no_words} words, incorporating '{word_of_the_day}' naturally.",
+        f"How to Use {input_text} Effectively as a {blog_style} Professional. Cover this in {no_words} words, using '{word_of_the_day}' practically.",
+        f"The Challenges of {input_text} in {blog_style} and How to Overcome Them. Write {no_words} words and creatively use '{word_of_the_day}'.",
+        f"How {blog_style} Professionals Can Navigate {input_text}. Provide guidance in {no_words} words and include '{word_of_the_day}'.",
+        f"5 Lessons Learned from {input_text} for {blog_style} Professionals. Share these in {no_words} words while incorporating '{word_of_the_day}'.",
+        f"The Power of {input_text} for {blog_style}. Explain its influence in {no_words} words, ensuring '{word_of_the_day}' is highlighted.",
+        f"Why {input_text} Should Be a Priority for {blog_style}. Discuss in {no_words} words while weaving '{word_of_the_day}' into the narrative.",
+        f"How {blog_style} Professionals Can Improve Their Work Through {input_text}. Cover this in {no_words} words and use '{word_of_the_day}'.",
+        f"The Impact of {input_text} on {blog_style} Success. Analyze in {no_words} words while making '{word_of_the_day}' central to the discussion.",
+        f"The Role of {input_text} in Transforming {blog_style}. Write about this in {no_words} words, ensuring '{word_of_the_day}' is included.",
+        f"How {input_text} Can Revolutionize {blog_style}. Explore the potential in {no_words} words with '{word_of_the_day}' creatively used.",
+        f"The Ultimate Guide to {input_text} for {blog_style} Professionals. Write this in {no_words} words, incorporating '{word_of_the_day}' throughout."
+                                       
     ]
+
+                                  
     prompt = random.choice(prompts)
     try:
         ensure_model_available(model_name)
