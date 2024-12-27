@@ -718,7 +718,7 @@ def get_ollama_response(input_text, no_words, blog_style, word_of_the_day, model
     ]
 
                                   
-    prompt = "generate a html for blog post, " + random.choice(prompts)
+    prompt = "Generate a complete HTML structure for a blog post. The content of the blog should be based on the following prompt: "  + random.choice(prompts)
     try:
         ensure_model_available(model_name)
         result = subprocess.run(
