@@ -718,7 +718,7 @@ def get_ollama_response(input_text, no_words, blog_style, word_of_the_day, model
     ]
 
                                   
-    prompt = random.choice(prompts) + " can use html tag code to express"
+    prompt = random.choice(prompts)
     try:
         ensure_model_available(model_name)
         result = subprocess.run(
@@ -747,7 +747,7 @@ def send_email(recipient_email, subject, content):
         message["Subject"] = subject
 
         # Attach the blog content
-        message.attach(MIMEText(content, "html"))
+        message.attach(MIMEText(content, "plain"))
 
         # Connect to the SMTP server
         with smtplib.SMTP("smtp.gmail.com", 587) as server:
