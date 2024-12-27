@@ -45,7 +45,7 @@ jobs:
     - name: Pull LLaMA Model
       run: |
         echo "Pulling the LLaMA 2 model..."
-        if ! ollama pull llama2; then
+        if ! ollama pull llama3; then
           echo "Model pull failed. Please check model availability or permissions."
           exit 1
         fi
