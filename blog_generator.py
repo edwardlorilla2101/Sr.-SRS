@@ -6,7 +6,29 @@ from email.mime.multipart import MIMEMultipart
 import os
 
 def ensure_model_available(model_name):
-    """Ensure the model is available locally or pull it if missing."""
+    """Ensure the model[
+        "Researchers", "Data Scientists", "Common People", "Students", "Entrepreneurs",
+        "Marketers", "Tech Enthusiasts", "Environmentalists", "Educators", "Healthcare Professionals",
+        "Investors", "Content Creators", "Policy Makers", "Journalists", "Travel Enthusiasts",
+        "Parents", "Artists", "Fitness Enthusiasts", "Engineers", "Historians",
+        "Teachers", "Developers", "Startup Founders", "Writers", "Bloggers",
+        "Gamers", "Environmental Activists", "Social Workers", "Consultants", "Small Business Owners",
+        "Public Speakers", "Podcasters", "Psychologists", "Sociologists", "Economists",
+        "Architects", "Designers", "Photographers", "Lawyers", "Accountants",
+        "Athletes", "Personal Trainers", "Chefs", "Food Critics", "Fashion Designers",
+        "Musicians", "Film Makers", "Storytellers", "Book Lovers", "Minimalists",
+        "Philosophers", "Technologists", "AI Enthusiasts", "Robotics Experts", "Urban Planners",
+        "Astronomers", "Mathematicians", "Physicists", "Chemists", "Biologists",
+        "Medical Researchers", "Veterinarians", "Farmers", "Futurists", "Cryptocurrency Enthusiasts",
+        "HR Professionals", "Recruiters", "Sales Experts", "E-commerce Entrepreneurs", "Digital Nomads",
+        "Remote Workers", "Mental Health Advocates", "Mindfulness Coaches", "Public Relations Experts", "Event Planners",
+        "Adventure Seekers", "Wildlife Conservationists", "Marine Biologists", "Astronauts", "Space Enthusiasts",
+        "DIY Hobbyists", "Car Enthusiasts", "Pet Owners", "Nature Photographers", "Gardeners",
+        "Home Decorators", "Interior Designers", "Outdoor Enthusiasts", "Sports Fans", "Social Media Influencers",
+        "YouTubers", "Film Critics", "Comedians", "Lifestyle Bloggers", "Relationship Coaches",
+        "Spiritual Guides", "Religious Leaders", "Ethicists", "Activists", "Human Rights Advocates",
+        "Policy Analysts", "Data Analysts", "Startup Mentors", "Cultural Historians", "Linguists"
+    ] is available locally or pull it if missing."""
     try:
         result = subprocess.run(
             ["ollama", "list"],
@@ -335,6 +357,107 @@ def generate_random_inputs():
         "Remote Work: Productivity Challenges and Benefits"
     ]
     styles = [
+         "Archaeologists",
+    "Game Designers",
+    "Puzzle Enthusiasts",
+    "Mythologists",
+    "Paleontologists",
+    "Astrobiologists",
+    "Metaverse Creators",
+    "Blockchain Developers",
+    "Web3 Enthusiasts",
+    "App Developers",
+    "Cryptographers",
+    "Zoologists",
+    "Epidemiologists",
+    "Astrologers",
+    "Numismatists",
+    "Philatelists",
+    "Toy Collectors",
+    "Historical Reenactors",
+    "Craftsmen",
+    "Leatherworkers",
+    "Blacksmiths",
+    "Woodworkers",
+    "Beekeepers",
+    "Cheesemakers",
+    "Winemakers",
+    "Brewmasters",
+    "Tea Sommeliers",
+    "Whiskey Connoisseurs",
+    "Luxury Brand Experts",
+    "Sneaker Collectors",
+    "Fashion Historians",
+    "Tattoo Artists",
+    "Bodybuilders",
+    "Yoga Instructors",
+    "Pilates Trainers",
+    "Climbers",
+    "Parkour Enthusiasts",
+    "Survivalists",
+    "Bushcrafters",
+    "Stunt Performers",
+    "Escape Room Designers",
+    "Magic Enthusiasts",
+    "Illusionists",
+    "Stand-Up Comedians",
+    "Screenwriters",
+    "Playwrights",
+    "Voice Actors",
+    "Radio Hosts",
+    "Audiobook Narrators",
+    "Music Producers",
+    "Sound Engineers",
+    "Songwriters",
+    "Lyricists",
+    "DJ Artists",
+    "Classical Musicians",
+    "Orchestra Conductors",
+    "Street Performers",
+    "Circus Artists",
+    "Jugglers",
+    "Acrobats",
+    "Equestrians",
+    "Cyclists",
+    "Runners",
+    "Marathon Trainers",
+    "Triathletes",
+    "Swimmers",
+    "Scuba Divers",
+    "Freedivers",
+    "Surfing Enthusiasts",
+    "Skiers",
+    "Snowboarders",
+    "Skaters",
+    "Roller Derby Athletes",
+    "Mixed Martial Artists",
+    "Fencers",
+    "Archers",
+    "Chess Players",
+    "Board Game Designers",
+    "Fantasy Writers",
+    "Sci-Fi Enthusiasts",
+    "Cosplayers",
+    "Fanfiction Writers",
+    "Graphic Novel Artists",
+    "Comic Collectors",
+    "Animators",
+    "VFX Artists",
+    "3D Modelers",
+    "Game Streamers",
+    "Urban Explorers",
+    "Treasure Hunters",
+    "Forensic Scientists",
+    "Crime Writers",
+    "Private Investigators",
+    "Ethnographers",
+    "Sociolinguists",
+    "Educational Technologists",
+    "Knowledge Managers",
+    "Information Architects",
+    "Museum Technologists",
+    "Cultural Preservationists",
+    "Ecosystem Restorers",
         "Researchers", "Data Scientists", "Common People", "Students", "Entrepreneurs",
         "Marketers", "Tech Enthusiasts", "Environmentalists", "Educators", "Healthcare Professionals",
         "Investors", "Content Creators", "Policy Makers", "Journalists", "Travel Enthusiasts",
@@ -373,7 +496,7 @@ def get_ollama_response(input_text, no_words, blog_style, word_of_the_day, model
             - Practical examples or relatable anecdotes to illustrate key points.
             - Synonyms and alternative phrases for "{input_text}" to improve SEO.
             - Eye-catching headings and bullet points for better readability.
-            - A concluding call-to-action to inspire further thought or action.
+            - A concluding call-to-action to inspire further thought or action.with seo optimize
         """,
 
         # Research-Oriented Prompt
@@ -383,7 +506,7 @@ def get_ollama_response(input_text, no_words, blog_style, word_of_the_day, model
             - Use "{word_of_the_day}" thoughtfully in a relevant context.
             - Include statistics, references, or data-driven insights to support the content.
             - Highlight challenges, solutions, or innovations related to the topic.
-            - Use structured formatting, with headings, subheadings, and lists to organize the information.
+            - Use structured formatting, with headings, subheadings, and lists to organize the information.with seo optimize
         """,
 
         # Storytelling Prompt
@@ -393,7 +516,7 @@ def get_ollama_response(input_text, no_words, blog_style, word_of_the_day, model
             - Include the word "{word_of_the_day}" in a meaningful and creative way.
             - Start with a captivating story or anecdote to draw readers in.
             - Include a moral, takeaway, or lesson that ties back to the topic.
-            - Use vivid language and relatable examples to make the content engaging.
+            - Use vivid language and relatable examples to make the content engaging.with seo optimize
         """,
 
         # Listicle Prompt
@@ -402,7 +525,7 @@ def get_ollama_response(input_text, no_words, blog_style, word_of_the_day, model
             - Contain {no_words} words and use the word "{word_of_the_day}" naturally.
             - Include at least 5 main points or items, each with a brief explanation or example.
             - Use headings and bullet points to make the content scannable.
-            - End with a summary or call-to-action to encourage further engagement.
+            - End with a summary or call-to-action to encourage further engagement. with seo optimize
         """,
 
         # Opinion Piece Prompt
@@ -412,7 +535,7 @@ def get_ollama_response(input_text, no_words, blog_style, word_of_the_day, model
             - Use "{word_of_the_day}" in a bold and creative way to emphasize your perspective.
             - Present a clear stance on the topic and support it with logical arguments.
             - Address potential counterarguments and provide rebuttals.
-            - Conclude with a strong and memorable statement to leave an impact.
+            - Conclude with a strong and memorable statement to leave an impact.with seo optimize
         """,
 
         # How-To Guide Prompt
@@ -421,7 +544,7 @@ def get_ollama_response(input_text, no_words, blog_style, word_of_the_day, model
             - Be {no_words} words in length and include "{word_of_the_day}" in a practical context.
             - Outline clear, step-by-step instructions with examples or tips.
             - Use headings, subheadings, and numbered lists for easy navigation.
-            - Address common challenges and provide solutions for each step.
+            - Address common challenges and provide solutions for each step.with seo optimize
         """,
 
         # FAQ-Style Prompt
@@ -430,7 +553,7 @@ def get_ollama_response(input_text, no_words, blog_style, word_of_the_day, model
             - Be around {no_words} words long and include "{word_of_the_day}" in a creative way.
             - Address at least 5 common questions or concerns related to the topic.
             - Provide concise and informative answers with actionable advice.
-            - Use headings or bold text for each question to improve readability.
+            - Use headings or bold text for each question to improve readability.with seo optimize
         """,
 
         # Problem-Solution Prompt
@@ -440,7 +563,7 @@ def get_ollama_response(input_text, no_words, blog_style, word_of_the_day, model
             - Use "{word_of_the_day}" in the context of addressing or overcoming the problem.
             - Clearly define the problem and explain why it matters.
             - Offer practical solutions or strategies to tackle the issue.
-            - Conclude with a summary or call-to-action encouraging readers to act.
+            - Conclude with a summary or call-to-action encouraging readers to act.with seo optimize
         """,
 
         # Analytical Prompt
@@ -450,7 +573,7 @@ def get_ollama_response(input_text, no_words, blog_style, word_of_the_day, model
             - Include "{word_of_the_day}" to emphasize key points or findings.
             - Break down the topic into smaller components or trends for analysis.
             - Use data, graphs, or references to support arguments.
-            - Conclude with insights or predictions based on the analysis.
+            - Conclude with insights or predictions based on the analysis.with seo optimize
         """,
 
         # Creative Prompt
@@ -459,7 +582,7 @@ def get_ollama_response(input_text, no_words, blog_style, word_of_the_day, model
             - Be around {no_words} words and incorporate "{word_of_the_day}" in an imaginative way.
             - Use storytelling, metaphors, or fictional scenarios to explore the topic.
             - Focus on originality and unique perspectives to captivate readers.
-            - Provide a meaningful takeaway or lesson at the end.
+            - Provide a meaningful takeaway or lesson at the end.with seo optimize
         """
     ]
     prompt = random.choice(prompts)
