@@ -819,8 +819,8 @@ if __name__ == "__main__":
         recipient = "edwardlorilla2048.edwardlancelorilla1@blogger.com"  # Replace with the actual recipient's email
         send_email(
             recipient_email=recipient,
-            subject=f"{blog_content.title}",
-            content=blog_content.blog
+            subject=f"{blog_content["title"]}",
+            content=blog_content["blog"]
         )
     else:
         print("Blog content generation failed. Email will not be sent.")
