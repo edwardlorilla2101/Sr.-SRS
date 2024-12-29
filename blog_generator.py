@@ -748,7 +748,20 @@ def get_ollama_response(input_text, no_words, blog_style, word_of_the_day, model
 
                                   
     prompt = random.choice(prompts) + " well structured blog with adsense approve article and seo optimize article"
-    promptTitle =input_text + " on " +  blog_style + " and include  " + word_of_the_day
+    promptTitle =  """
+    Generates an SEO-optimized title for a blog.
+
+    Parameters:
+        input_text (str): The topic or main subject of the blog.
+        blog_style (str): The target audience or style of the blog.
+        word_of_the_day (str): A keyword or phrase to be included in the title.
+
+    Returns:
+        str: A dynamically generated, SEO-optimized title.
+
+    Mastering {input_text}: A Comprehensive Guide for {blog_style} Professionals Featuring {word_of_the_day}
+    """
+
     try:
         ensure_model_available(model_name)
         result = subprocess.run(
