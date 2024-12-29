@@ -747,7 +747,8 @@ def get_ollama_response(input_text, no_words, blog_style, word_of_the_day, model
     ]
 
                                   
-    prompt = random.choice(prompts) + " with adsense approve article and soe optimize article "
+    prompt = random.choice(prompts) + " with adsense approve article and seo optimize article "
+    promptTitle =prompt + " title"
     try:
         ensure_model_available(model_name)
         result = subprocess.run(
@@ -756,10 +757,20 @@ def get_ollama_response(input_text, no_words, blog_style, word_of_the_day, model
             stderr=subprocess.PIPE,
             text=True
         )
+
+        resultTitle = subprocess.run(
+            ["ollama", "run", model_name, promptTitle],
+            stdout=subprocess.PIPE,
+            stderr=subprocess.PIPE,
+            text=True
+        )
         if result.returncode != 0:
             raise Exception(f"Error running model: {result.stderr.strip()}")
         print("Ollama Response Retrieved Successfully.")
-        return result.stdout.strip()
+        return {
+            "blog": result.stdout.strip(),
+            "title": resultTitle.stdout.strip()
+        }
     except Exception as e:
         return f"Error during query: {e}"
 
@@ -808,8 +819,8 @@ if __name__ == "__main__":
         recipient = "edwardlorilla2048.edwardlancelorilla1@blogger.com"  # Replace with the actual recipient's email
         send_email(
             recipient_email=recipient,
-            subject=f"{topic}",
-            content=blog_content
+            subject=f"{blog_content.title}",
+            content=blog_content.blog
         )
     else:
         print("Blog content generation failed. Email will not be sent.")
