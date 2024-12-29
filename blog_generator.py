@@ -805,7 +805,7 @@ if __name__ == "__main__":
 
     # Send the blog content via email
     if "Error" not in blog_content:
-        recipient = "edwardlorilla2048.edwardlancelorilla@blogger.com"  # Replace with the actual recipient's email
+        recipient = "edwardlorilla2048.edwardlancelorilla1@blogger.com"  # Replace with the actual recipient's email
         send_email(
             recipient_email=recipient,
             subject=f"{topic}",
