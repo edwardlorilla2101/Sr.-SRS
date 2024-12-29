@@ -759,7 +759,7 @@ def get_ollama_response(input_text, no_words, blog_style, word_of_the_day, model
             stderr=subprocess.PIPE,
             text=True
         )
-        promptTitle = f"generate title of this blog choose the best title directly {result.stdout.strip()}"
+        promptTitle = f"generate title of this blog choose the best one title directly {result.stdout.strip()}"
         resultTitle = subprocess.run(
             ["ollama", "run", model_name, promptTitle],
             stdout=subprocess.PIPE,
