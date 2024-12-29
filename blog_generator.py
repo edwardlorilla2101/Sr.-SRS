@@ -748,7 +748,7 @@ def get_ollama_response(input_text, no_words, blog_style, word_of_the_day, model
 
                                   
     prompt = random.choice(prompts) + " well structured blog with adsense approve article and seo optimize article"
-    promptTitle = f"Mastering {input_text}: A Comprehensive Guide for {blog_style} Professionals Featuring {word_of_the_day}"
+    promptTitle = f"generate a title Mastering {input_text}: A Comprehensive Guide for {blog_style} Professionals Featuring {word_of_the_day} "
 
 
     try:
