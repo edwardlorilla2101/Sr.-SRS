@@ -797,7 +797,7 @@ def send_email(recipient_email, subject, content):
         message = MIMEMultipart()
         message["From"] = sender_email
         message["To"] = recipient_email
-        message["Subject"] = subject
+        message["Subject"] = subject.replace("\n", " ").strip()
 
         # Attach the blog content
         message.attach(MIMEText(content, "plain"))
