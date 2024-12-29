@@ -747,7 +747,7 @@ def get_ollama_response(input_text, no_words, blog_style, word_of_the_day, model
     ]
 
                                   
-    prompt = random.choice(prompts) + " with adsense approve article and seo optimize article "
+    prompt = random.choice(prompts) + " well structured blog with adsense approve article and seo optimize article"
     promptTitle =prompt + " title"
     try:
         ensure_model_available(model_name)
