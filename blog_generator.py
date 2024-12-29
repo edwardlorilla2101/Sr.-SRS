@@ -748,7 +748,7 @@ def get_ollama_response(input_text, no_words, blog_style, word_of_the_day, model
 
                                   
     prompt = random.choice(prompts) + " well structured blog with adsense approve article and seo optimize article"
-    promptTitle = f"generate a title Mastering {input_text}: A Comprehensive Guide for {blog_style} Professionals Featuring {word_of_the_day} and only one option"
+   
 
 
     try:
@@ -759,7 +759,7 @@ def get_ollama_response(input_text, no_words, blog_style, word_of_the_day, model
             stderr=subprocess.PIPE,
             text=True
         )
-
+        promptTitle = f"generate title of this blog {result.stdout.strip()}"
         resultTitle = subprocess.run(
             ["ollama", "run", model_name, promptTitle],
             stdout=subprocess.PIPE,
@@ -769,6 +769,7 @@ def get_ollama_response(input_text, no_words, blog_style, word_of_the_day, model
         if result.returncode != 0:
             raise Exception(f"Error running model: {result.stderr.strip()}")
         print("Ollama Response Retrieved Successfully.")
+        
         return {
             "blog": result.stdout.strip(),
             "title": resultTitle.stdout.strip()
