@@ -823,7 +823,7 @@ def get_ollama_response(input_text, no_words, blog_style, word_of_the_day, model
 
 
     ]                     
-    prompt = random.choice(prompts)"
+    prompt = random.choice(prompts)
     try:
         ensure_model_available(model_name)
         result = subprocess.run(
