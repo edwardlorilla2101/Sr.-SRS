@@ -845,7 +845,7 @@ def get_ollama_response(input_text, no_words, blog_style, word_of_the_day, model
     
         # Step 3: SEO Specialist optimizes the draft
         print("\nSEO Specialist: Optimizing for SEO...")
-        seo_optimized = crew.optimize_for_seo(result.stdout.strip(), keyword)
+        seo_optimized = crew.optimize_for_seo(result.stdout.strip(), word_of_the_day)
         print("SEO-optimized content:\n", seo_optimized)
     
         # Step 4: Editor refines the final draft
