@@ -680,7 +680,7 @@ class AICrew:
 
     def optimize_for_seo(self, content, keyword):
         prompt = f"""
-        Optimize the following blog post for SEO. Focus on the keyword: {keyword}.
+        Optimize the following blog post for SEO. 
         Improve keyword density, add meta descriptions, and ensure readability.
         Content: {content}
         """
