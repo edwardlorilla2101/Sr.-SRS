@@ -647,8 +647,23 @@ def generate_random_inputs():
     return input_text, no_words, blog_style
 class AICrew:
     """AI Crew with specialized roles."""
-    def __init__(self):
-
+    def __init__(self, model_name):
+        self.model_name = model_name
+    def run_ollama(self, prompt):
+        """Run a prompt through the Ollama model."""
+        try:
+            result = subprocess.run(
+                ["ollama", "run", self.model_name, prompt],
+                stdout=subprocess.PIPE,
+                stderr=subprocess.PIPE,
+                text=True
+            )
+            if result.returncode != 0:
+                raise Exception(f"Error running Ollama: {result.stderr.strip()}")
+            return result.stdout.strip()
+        except Exception as e:
+            return f"Error: {e}"
+    
     def creative_write(self, topic):
         prompt = f"""
         Write an engaging blog post about the topic: {topic}. 
@@ -821,7 +836,7 @@ def get_ollama_response(input_text, no_words, blog_style, word_of_the_day, model
         if result.returncode != 0:
             raise Exception(f"Error running model: {result.stderr.strip()}")
         print("Ollama Response Retrieved Successfully.")
-        crew = AICrew()
+        crew = AICrew(model_name)
     
         # Step 2: Fact Checker validates the draft
         print("\nFact Checker: Validating content...")
