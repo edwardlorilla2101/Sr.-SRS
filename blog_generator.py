@@ -645,7 +645,38 @@ def generate_random_inputs():
     no_words = 50000
     blog_style = random.choice(styles)
     return input_text, no_words, blog_style
+class AICrew:
+    """AI Crew with specialized roles."""
+    def __init__(self):
 
+    def creative_write(self, topic):
+        prompt = f"""
+        Write an engaging blog post about the topic: {topic}. 
+        Include interesting anecdotes, relatable examples, and a strong conclusion.
+        """
+        return self.run_ollama(prompt)
+
+    def fact_check(self, content):
+        prompt = f"""
+        Verify the accuracy of the following text: {content}. 
+        Highlight any inaccuracies and provide confidence levels for each fact.
+        """
+        return self.run_ollama(prompt)
+
+    def optimize_for_seo(self, content, keyword):
+        prompt = f"""
+        Optimize the following blog post for SEO. Focus on the keyword: {keyword}.
+        Improve keyword density, add meta descriptions, and ensure readability.
+        Content: {content}
+        """
+        return self.run_ollama(prompt)
+
+    def edit_content(self, content):
+        prompt = f"""
+        Edit the following blog post for tone, grammar, and readability. 
+        Make it polished and professional. Content: {content}
+        """
+        return self.run_ollama(prompt)
 def get_ollama_response(input_text, no_words, blog_style, word_of_the_day, model_name="llama3"):
     """Generate a blog using Ollama with the provided inputs."""
     today_year = datetime.now().year
@@ -776,13 +807,8 @@ def get_ollama_response(input_text, no_words, blog_style, word_of_the_day, model
         f"Write a blog The Ultimate Guide to {input_text} for {blog_style} Professionals in {today_year}. Write this in {no_words} words, incorporating '{word_of_the_day}' throughout."
 
 
-    ]
-
-                                  
-    prompt = random.choice(prompts) + " well structured blog with adsense approve article and seo optimize article"
-   
-
-
+    ]                     
+    prompt = random.choice(prompts)"
     try:
         ensure_model_available(model_name)
         result = subprocess.run(
@@ -791,19 +817,35 @@ def get_ollama_response(input_text, no_words, blog_style, word_of_the_day, model
             stderr=subprocess.PIPE,
             text=True
         )
-        promptTitle = f"generate title of this blog choose the best one title  {result.stdout.strip()} directly one title"
+        
+        if result.returncode != 0:
+            raise Exception(f"Error running model: {result.stderr.strip()}")
+        print("Ollama Response Retrieved Successfully.")
+        crew = AICrew()
+    
+        # Step 2: Fact Checker validates the draft
+        print("\nFact Checker: Validating content...")
+        fact_check_results = crew.fact_check(result.stdout.strip())
+        print("Fact check results:\n", fact_check_results)
+    
+        # Step 3: SEO Specialist optimizes the draft
+        print("\nSEO Specialist: Optimizing for SEO...")
+        seo_optimized = crew.optimize_for_seo(draft, keyword)
+        print("SEO-optimized content:\n", seo_optimized)
+    
+        # Step 4: Editor refines the final draft
+        print("\nEditor: Polishing content...")
+        final_content = crew.edit_content(seo_optimized)
+        print("Final edited content:\n", final_content)
+        promptTitle = f"generate title of this blog choose the best one title  {final_content} directly one title"
         resultTitle = subprocess.run(
             ["ollama", "run", model_name, promptTitle],
             stdout=subprocess.PIPE,
             stderr=subprocess.PIPE,
             text=True
         )
-        if result.returncode != 0:
-            raise Exception(f"Error running model: {result.stderr.strip()}")
-        print("Ollama Response Retrieved Successfully.")
-        
         return {
-            "blog": result.stdout.strip(),
+            "blog": final_content,
             "title": resultTitle.stdout.strip()
         }
     except Exception as e:
