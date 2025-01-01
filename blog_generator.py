@@ -947,7 +947,7 @@ def send_email(recipient_email, subject, content):
         message["Subject"] = subject.replace("\n", " ").strip()
 
         # Attach the blog content
-        message.attach(MIMEText(content, "html"))
+        message.attach(MIMEText(content, "plain"))
 
         # Connect to the SMTP server
         with smtplib.SMTP("smtp.gmail.com", 587) as server:
