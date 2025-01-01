@@ -15,7 +15,7 @@ def transform_to_random_headings(text):
         clean_line = line.strip()
         if clean_line:  # Only process non-empty lines
             # Randomly choose a heading level between 1 and 5
-            heading_level = random.randint(1, 5)
+            heading_level = random.randint(2, 2)
             transformed.append(f"<h{heading_level}>{clean_line}</h{heading_level}>")
         else:
             transformed.append("")  # Keep empty lines
@@ -928,7 +928,7 @@ def get_ollama_response(input_text, no_words, blog_style, word_of_the_day, model
             text=True
         )
         return {
-            "blog": transform_to_random_headings(final_content),
+            "blog": (final_content),
             "title": resultTitle.stdout.strip()
         }
     except Exception as e:
