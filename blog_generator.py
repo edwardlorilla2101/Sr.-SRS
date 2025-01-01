@@ -5,6 +5,22 @@ from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
 import os
 from datetime import datetime
+
+
+def transform_to_random_headings(text):
+    lines = text.split("\n")
+    transformed = []
+    
+    for line in lines:
+        clean_line = line.strip()
+        if clean_line:  # Only process non-empty lines
+            # Randomly choose a heading level between 1 and 5
+            heading_level = random.randint(1, 5)
+            transformed.append(f"<h{heading_level}>{clean_line}</h{heading_level}>")
+        else:
+            transformed.append("")  # Keep empty lines
+
+    return "\n".join(transformed)
 def ensure_model_available(model_name):
     """Ensure the model[
         "Researchers", "Data Scientists", "Common People", "Students", "Entrepreneurs",
@@ -912,7 +928,7 @@ def get_ollama_response(input_text, no_words, blog_style, word_of_the_day, model
             text=True
         )
         return {
-            "blog": final_content,
+            "blog": transform_to_random_headings(final_content),
             "title": resultTitle.stdout.strip()
         }
     except Exception as e:
