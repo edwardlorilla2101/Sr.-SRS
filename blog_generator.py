@@ -852,7 +852,7 @@ def get_ollama_response(input_text, no_words, blog_style, word_of_the_day, model
         print("\nEditor: Polishing content...")
         final_content = crew.edit_content(seo_optimized)
         print("Final edited content:\n", final_content)
-        promptTitle = f"generate title of this blog choose the best one title  {final_content} directly one title"
+        promptTitle = f"what is the title  {final_content}?"
         resultTitle = subprocess.run(
             ["ollama", "run", model_name, promptTitle],
             stdout=subprocess.PIPE,
