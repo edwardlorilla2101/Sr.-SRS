@@ -985,3 +985,34 @@ if __name__ == "__main__":
         )
     else:
         print("Blog content generation failed. Email will not be sent.")
+
+if __name__ == "__main__":
+    # Generate random inputs
+    
+    word_of_the_day = fetch_word_of_the_day() or "innovation"
+    
+    # List of recipients
+    recipients = [
+        "edwardlorilla2048.edwardlancelorilla@blogger.com",
+        "edwardlorilla2064.tower@blogger.com"
+    ]
+    for recipient in recipients:
+        topic, word_count, audience = generate_random_inputs()
+        print(f"Generating content for: {recipient}")
+        
+        # Generate unique blog content for each recipient
+        blog_content = get_ollama_response(topic, word_count, audience, word_of_the_day)
+        
+        print("Generated Blog Content:\n")
+        print(blog_content)
+        
+        # Send the blog content via email
+        if "Error" not in blog_content:
+            send_email(
+                recipient_email=recipient,
+                subject=blog_content["title"],
+                content=blog_content["blog"]
+            )
+            print(f"Email sent to {recipient}")
+        else:
+            print(f"Blog content generation failed for {recipient}. Email will not be sent.")
