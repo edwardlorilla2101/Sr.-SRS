@@ -994,7 +994,8 @@ if __name__ == "__main__":
     # List of recipients
     recipients = [
         "edwardlorilla2048.edwardlancelorilla@blogger.com",
-        "edwardlorilla2064.edwardlancelorilla@blogger.com"
+        "edwardlorilla2064.edwardlancelorilla@blogger.com",
+        "edwardlorilla2064.edwardlancelorilla1@blogger.com",
     ]
     for recipient in recipients:
         topic, word_count, audience = generate_random_inputs()
