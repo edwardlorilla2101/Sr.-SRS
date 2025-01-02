@@ -959,32 +959,6 @@ def send_email(recipient_email, subject, content):
     except Exception as e:
         print(f"Error sending email: {e}")
 
-if __name__ == "__main__":
-    # Generate random inputs
-    topic, word_count, audience = generate_random_inputs()
-    word_of_the_day = fetch_word_of_the_day() or "innovation"  # Default if WOTD fetch fails
-    
-    # Display inputs
-    print(f"Random Topic: {topic}")
-    print(f"Word Count: {word_count}")
-    print(f"Blog Style: {audience}")
-    print(f"Word of the Day: {word_of_the_day}\n")
-    
-    # Generate the blog content
-    blog_content = get_ollama_response(topic, word_count, audience, word_of_the_day)
-    print("Generated Blog Content:\n")
-    print(blog_content)
-
-    # Send the blog content via email
-    if "Error" not in blog_content:
-        recipient = "edwardlorilla2048.edwardlancelorilla@blogger.com"  # Replace with the actual recipient's email
-        send_email(
-            recipient_email=recipient,
-            subject=blog_content["title"],
-            content=blog_content["blog"]
-        )
-    else:
-        print("Blog content generation failed. Email will not be sent.")
 
 if __name__ == "__main__":
     # Generate random inputs
@@ -994,6 +968,7 @@ if __name__ == "__main__":
     # List of recipients
     recipients = [
         "edwardlorilla2048.edwardlancelorilla@blogger.com",
+        "edwardlorilla2061.edwardlancelorilla@blogger.com",
         "edwardlorilla2064.edwardlancelorilla@blogger.com",
         "edwardlorilla2064.edwardlancelorilla1@blogger.com",
     ]
